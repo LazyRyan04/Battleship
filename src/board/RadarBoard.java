@@ -1,7 +1,7 @@
 package board;
 
-import status.Status;
-import status.DotStatus;
+import boardObject.BoardObject;
+import boardObject.DotStatus;
 
 public class RadarBoard extends Board
 {
@@ -11,7 +11,7 @@ public class RadarBoard extends Board
     }
 
     @Override
-    public boolean setStatus(int coordX, int coordY, Status value)
+    public boolean setStatus(int coordX, int coordY, BoardObject value)
     {
         if (value == DotStatus.HIT || value == DotStatus.MISS)
         {

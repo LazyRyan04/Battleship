@@ -1,6 +1,6 @@
 package board;
 
-import ship.Ship;
+import boardObject.Ship;
 
 public class OceanBoard extends Board
 {
