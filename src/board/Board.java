@@ -1,25 +1,28 @@
 package board;
 
+import status.Status;
+import status.DotStatus;
+
 public abstract class Board
 {
     //fields
-    private DotStatus[][] statuses;
+    private Status[][] statuses;
 
     //methods
     public Board(int sizeX, int sizeY)
     {
-        this.statuses = new DotStatus[sizeX][sizeY];
+        this.statuses = new Status[sizeX][sizeY];
     }
 
-    public DotStatus getStatus(int coordX, int coordY)
+    public Status getStatus(int coordX, int coordY)
     {
         //guard clauses should be here
-        DotStatus status = this.statuses[coordX][coordY];
+        Status status = this.statuses[coordX][coordY];
 
         return status == null ? DotStatus.EMPTY : status; //return empty if null
     }
 
-    public boolean setStatus(int coordX, int coordY, DotStatus value)
+    public boolean setStatus(int coordX, int coordY, Status value)
     {
         //guard clauses should be here
         this.statuses[coordX][coordY] = value;
