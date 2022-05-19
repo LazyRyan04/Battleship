@@ -4,8 +4,8 @@ import coordinates.Range;
 
 public class BoardObject implements Displayable
 {
-    private Displayable value;
-    private Range bounds;
+    private final Displayable value;
+    private final Range bounds;
 
     public BoardObject(Displayable value, Range bounds)
     {

@@ -1,6 +1,5 @@
 package board;
 
-import boardObject.BoardObject;
 import boardObject.Displayable;
 import boardObject.Status;
 import coordinates.Point;
