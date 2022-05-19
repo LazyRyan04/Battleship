@@ -65,7 +65,7 @@ public abstract class Board
         {
             for (int j = minCorner.getY(); j < maxCorner.getY(); ++j)
             {
-                this.objects[i][j] = value;
+                this.setObject(i, j, value);
             }
         }
     }
@@ -104,7 +104,7 @@ public abstract class Board
         {
             for(int j = 0; j < width; j++)
             {
-                sb.append(this.getObject(i, j).display());
+                sb.append(this.getObject(j, i).display());
             }
             sb.append('\n');
         }
