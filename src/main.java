@@ -8,7 +8,7 @@ public class main
 {
     public static void main(String[] args)
     {
-        OceanBoard board = new OceanBoard(10, 10);
+        OceanBoard board = new OceanBoard(20, 10);
 
         Displayable value = Status.HIT;
         Range range = new Range(new Point(0, 1), new Point(3, 5));

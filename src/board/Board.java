@@ -89,7 +89,7 @@ public abstract class Board
 
     protected void setObject(int x, int y, Displayable val)
     {
-        this.objects[x][y] = val;
+        this.objects[y][x] = val;
     }
 
     @Override
