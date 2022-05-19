@@ -1,7 +1,9 @@
 package board;
 
 import boardObject.BoardObject;
-import boardObject.DotStatus;
+import boardObject.Displayable;
+import boardObject.Status;
+import coordinates.Point;
 
 public class RadarBoard extends Board
 {
@@ -10,12 +12,12 @@ public class RadarBoard extends Board
         super(sizeX, sizeY);
     }
 
-    @Override
-    public boolean setStatus(int coordX, int coordY, BoardObject value)
+    public boolean setStatus(Point c, BoardObject val)
     {
-        if (value == DotStatus.HIT || value == DotStatus.MISS)
+        Displayable value = val.getValue();
+        if (value == Status.HIT || value == Status.MISS)
         {
-            super.setStatus(coordX, coordY, value);
+            super.setObject(c, val);
             return true;
         }
 
