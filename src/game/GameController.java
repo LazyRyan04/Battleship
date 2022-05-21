@@ -29,9 +29,9 @@ public class GameController
   
   public synchronized static GameController init(int size)
   {
-    if(instance == null)
+    if(instance != null)
     {
-      return null;
+      return instance;
     }
     
     instance = new GameController(
@@ -45,14 +45,14 @@ public class GameController
   public boolean player1Attack(Point z) //if return false, in main class, recall the method or smthng
   //returns ship which will then be tested to see if the ship sunk
   {
+
     Displayable a = p2.takeHit(z);
     
     if(a == null)
     {
       return false;
     }
-    
-    
+
     if(a instanceof Ship)
     {   
       p1.updateRadar(z, Status.HIT);
@@ -78,16 +78,17 @@ public class GameController
 
 
 
-  public boolean player2Attack(Point z) 
+    public boolean player2Attack(Point z) //if return false, in main class, recall the method or smthng
+  //returns ship which will then be tested to see if the ship sunk
   {
+
     Displayable a = p1.takeHit(z);
     
     if(a == null)
     {
       return false;
     }
-    
-    
+
     if(a instanceof Ship)
     {   
       p2.updateRadar(z, Status.HIT);
@@ -96,7 +97,7 @@ public class GameController
       
       if(b.isSunk())
       {
-        p1.sunkShip();
+        p2.sunkShip();
       }
         //might change this 1 later
       return true; 
@@ -110,6 +111,7 @@ public class GameController
 
     return false;
   }
+
 
 
   public String p1SeeOBoard()

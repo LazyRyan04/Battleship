@@ -51,17 +51,22 @@ public class main {
     }
 
     public static int promptCoordX(Scanner userInput) {
-        System.out.print("Input coordX of ship starting position: ");
+        System.out.print("Input coordX: ");
         String numberInputs = userInput.nextLine();
         return Integer.parseInt(numberInputs);
 
     }
 
     public static int promptCoordY(Scanner userInput) {
-        System.out.print("Input coordY of ship starting position: ");
+        System.out.print("Input coordY: ");
         String numberInputs = userInput.nextLine();
         return Integer.parseInt(numberInputs);
     }
+
+    public static void clearScreen() {  
+    System.out.print("\033[H\033[2J");  
+    System.out.flush();  
+}  
 
     public static void main(String[] args)
     {
@@ -70,6 +75,7 @@ public class main {
         GameController control = GameController.init(10);
 
         System.out.println("Player 1 put ships down!");
+        System.out.println(control.p1SeeOBoard());
         for(int i = 0; i < 5; i++)
         {
             ShipTypes shipType = promptShipTypes(userInput);
@@ -78,21 +84,21 @@ public class main {
             int coordY = promptCoordY(userInput);
 
             control.player1PutShip(shipType, coordX, coordY, rotDir);
+            System.out.println(control.p1SeeOBoard());
         }
-        System.out.flush();
-
+        clearScreen();
         System.out.println("Player 2 put ships down!");
-
-        for(int i = 0; i < 5; i++) {
+        System.out.println(control.p2SeeOBoard());
+        for(int i = 0; i < 1; i++) {
             ShipTypes shipType = promptShipTypes(userInput);
             RotationDirection rotDir = promptRotationDirection(userInput);
             int coordX = promptCoordX(userInput);
             int coordY = promptCoordY(userInput);
 
             control.player2PutShip(shipType, coordX, coordY, rotDir);
+            System.out.println(control.p2SeeOBoard());
         }
-        System.out.flush();
-
+        clearScreen();
         while(true)
         {
             System.out.println("Player 1 Attack");
@@ -107,21 +113,23 @@ public class main {
                 System.out.println("Player 1 won!");
                 System.exit(0);
             }
-
-            System.out.flush();
-
+            userInput.nextLine();
+            clearScreen();
+          
             System.out.println("Player 2 Attack");
             System.out.println(control.p2SeeRBoard());
             System.out.println(control.p2SeeOBoard());
             setPoint = new Point(promptCoordX(userInput), promptCoordY(userInput));
             control.player2Attack(setPoint);
-            System.out.println(control.p1SeeRBoard());
-            System.out.flush();
+            System.out.println(control.p2SeeRBoard());           
+            win = control.won(5);
             if(win == -1)
             {
                 System.out.println("Player 2 won!");
                 System.exit(0);
             }
+            userInput.nextLine();
+            clearScreen(); 
 
 
 

@@ -15,14 +15,14 @@ public class ShipFactory
         
         return new BoardObject(
           new Ship(5), 
-          new Range(new Point(0, 0), new Point(5, 1))
+          new Range(new Point(0, 0), new Point(0, 4))
         ); //better organized, and readable
 
       case BATTLESHIP:
 
         return new BoardObject(
           new Ship(4),
-          new Range(new Point(0,0), new Point(4,1))
+          new Range(new Point(0,0), new Point(0,3))
         );
 
       case SUBMARINE:
@@ -30,21 +30,21 @@ public class ShipFactory
 
         return new BoardObject(
           new Ship(3), 
-          new Range(new Point(0,0), new Point(3,1))
+          new Range(new Point(0,0), new Point(0,2))
         );
 
       case DESTROYER:
 
         return new BoardObject(
           new Ship(2), 
-          new Range(new Point(0,0), new Point(2,1))
+          new Range(new Point(0,0), new Point(0,1))
         );
 
       case IVAN:
         
         return new BoardObject(
           new Ivan(),
-          new Range(new Point(0,0), new Point(1,1))
+          new Range(new Point(0,0), new Point(0,1))
         );
         
     }

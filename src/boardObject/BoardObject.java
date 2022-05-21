@@ -41,15 +41,12 @@ public class BoardObject implements Displayable
       {
        case CCW:
          this.bounds = this.bounds.rotateCCW();
-        break;
+         break;
     
        case CW:
          this.bounds = this.bounds.rotateCW();
-        break;
+         break;
           
-      }
-       
-          
+      }     
     }
-    //rotateObject function
 }

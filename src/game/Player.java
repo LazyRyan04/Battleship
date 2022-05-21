@@ -32,39 +32,24 @@ public class Player
 
   public Displayable takeHit(Point b)
   {
-    if(!this.oBoard.inBounds(b))
+     if(!this.oBoard.inBounds(b))
     {
       return null;
     }
+
     Displayable a = this.oBoard.getObject(b);
-
-    if(!(a instanceof Status))
-    {
-      return null;
-    }
-
-    Status c = (Status) a;
-    
-    switch(c) 
-    {
-      case HIT:
-      case MISS:
-      case SUNK:
-        
-      return null;
-    }
     
     if(a instanceof Ship)
     {
       this.oBoard.setObject(b, Status.HIT);
-      return a;
     }
 
     else
     {
       this.oBoard.setObject(b, Status.MISS);
-      return a;
     }
+
+    return a;
   }
   
   public void updateRadar(Point a, Status b) 
