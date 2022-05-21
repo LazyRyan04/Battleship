@@ -12,15 +12,13 @@ public class RadarBoard extends Board
         super(sizeX, sizeY);
     }
 
-    public boolean setStatus(Point c, BoardObject val)
+    public boolean setStatus(Point c, Status value)
     {
-        Displayable value = val.getValue();
         if (value == Status.HIT || value == Status.MISS)
         {
-            super.setObject(c, val);
+            super.setObject(c, value);
             return true;
         }
-
         return false;
     }
 }

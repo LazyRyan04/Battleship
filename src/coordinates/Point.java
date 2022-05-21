@@ -11,11 +11,18 @@ public class Point
         this.y = y;
     }
 
-    public int getX() {
+    public int getX() 
+    {
         return this.x;
     }
 
-    public int getY() {
+    public int getY() 
+    {
         return this.y;
+    }
+
+    public Point addPoint(Point z)
+    {
+      return new Point(this.getX() + z.getX(), this.getY() + z.getY());    
     }
 }

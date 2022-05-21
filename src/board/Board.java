@@ -25,7 +25,8 @@ public abstract class Board
     }
 
     public boolean inBounds(Point c) {
-        if (c.getY() >= this.getHeight()) {
+        if (c.getY() >= this.getHeight()) 
+        {
             return false;
         }
 
@@ -34,39 +35,46 @@ public abstract class Board
 
     public boolean checkRange(Range range) //maybe shorten this?
     {
-        Point minCorner= range.getMinCorner();
-        Point maxCorner = range.getMaxCorner();
+      Point minCorner= range.getMinCorner();
+      Point maxCorner = range.getMaxCorner();
+    
+      if(!this.inBounds(minCorner) && !this.inBounds(maxCorner))
+      {
+        return false;
+      }
 
-        boolean hasStuff = false;
-        for (int i = minCorner.getY(); i < maxCorner.getY(); ++i)
-        {
-            for (int j = maxCorner.getX(); j < maxCorner.getX(); ++j)
-            {
-                if (this.objects[i][j] != null)
-                {
-                    hasStuff = true;
-                    break;
-                }
-            }
-            if (hasStuff)
-                break;
-        }
-
-        return hasStuff;
+      boolean isEmpty = true;
+      for (int i = minCorner.getY(); i < maxCorner.getY(); ++i)
+      {
+          for (int j = maxCorner.getX(); j < maxCorner.getX(); ++j)
+          {
+              if (this.objects[i][j] != null)
+              {
+                  isEmpty = false;
+                  break;
+              }
+          }
+          if (!isEmpty)
+          {
+             break; 
+          }    
+      }
+      return isEmpty;
     }
 
-    public  void fillRange(Range range, Displayable value)
+  
+    public void fillRange(Range range, Displayable value)
     {
-        Point minCorner= range.getMinCorner();
-        Point maxCorner = range.getMaxCorner();
+      Point minCorner= range.getMinCorner();
+      Point maxCorner = range.getMaxCorner();
 
-        for (int i = minCorner.getX(); i < maxCorner.getX(); ++i)
+      for (int i = minCorner.getX(); i <= maxCorner.getX(); ++i)
+      {
+        for (int j = minCorner.getY(); j <= maxCorner.getY(); ++j)
         {
-            for (int j = minCorner.getY(); j < maxCorner.getY(); ++j)
-            {
-                this.setObject(i, j, value);
-            }
+            this.setObject(i, j, value);     
         }
+      }
     }
 
     public Displayable getObject(Point c)
@@ -82,7 +90,6 @@ public abstract class Board
     protected Displayable getObject(int x, int y)
     {
         Displayable object = this.objects[y][x];
-
         return object == null ? Status.EMPTY : object;
     }
 
@@ -94,20 +101,20 @@ public abstract class Board
     @Override
     public String toString()
     {
-        int height = this.getHeight();
-        int width = this.getWidth();
+      int height = this.getHeight();
+      int width = this.getWidth();
 
-        StringBuilder sb = new StringBuilder(height * width + height); //Austin please explain it to me when appropriate
+      StringBuilder sb = new StringBuilder(height * width + height); //Austin please explain it to me when appropriate
 
-        for (int i = 0; i < height; i++)
-        {
-            for(int j = 0; j < width; j++)
-            {
-                sb.append(this.getObject(j, i).display());
-            }
-            sb.append('\n');
-        }
+      for (int i = 0; i < height; i++)
+      {
+          for(int j = 0; j < width; j++)
+          {
+              sb.append(this.getObject(j, i).display()).append(' ');
+          }
+          sb.append('\n');
+      }
 
-        return sb.toString();
+      return sb.toString();
     }
 }
