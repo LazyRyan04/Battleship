@@ -1,194 +1,131 @@
-import board.*;
-import boardObject.*;
-import coordinates.*;
-import java.util.Scanner;
-import game.*;
-import ship.*;
+import coordinates.Point;
+import coordinates.RotationDirection;
+import game.GameController;
 import ship.ShipFactory.ShipTypes;
-import java.lang.NumberFormatException;
 
-public class main
-{
-  public static void main(String[] args)
-  {
-    System.out.println("WE LIKE IVAN");
-    
-    boolean isGameOver = false;
-    int shipsOnBoard = 5;
-    String numberInputs; 
-    String letterInput;
-    int num = 0;
-    
-    
-    System.out.println("WE LIKE IVAN!!");
-    
-    Scanner userInput = new Scanner(System.in); // Create a Scanner object
-
-    boolean setSize = false;
-
-    while(!setSize)
-    {
-      System.out.print("Please print the size of your board (Standard is 10X10): ");      
-      numberInputs = userInput.nextLine();
-      try
-      {
-        Integer.valueOf(numberInputs);
-      }
-      catch(NumberFormatException e)
-      {
-        setSize = false;
-      }
-      num = Integer.valueOf(numberInputs);
-      setSize = true;
-    }
-    
-
-    
-    GameController control = GameController.init(num);
-    
-    
-    ShipTypes type = null;
-    String x;
-    String y;
-    int coordX = 0;
-    int coordY = 0;
-    RotationDirection rotate = null;
-    boolean exitLoop1 = false;
-    boolean exitLoop2 = false;
-    boolean coordXValid = false;
-    boolean coordYValid = false;
+import java.util.Scanner;
 
 
-    public ShipType promptShipTypes()
-    { 
-      System.out.print("Input Ship type (First character of the ship please): ");
-      letterInput = userInput.nextLine();
+public class main {
+    public static ShipTypes promptShipTypes(Scanner userInput) {
 
-      while(!exitLoop1)
-      {
-        switch(letterInput)
-        {
-          case "a":
-          case "A":
-            exitLoop1 = true;
-            return ShipTypes.CARRIER;
-            break;
-  
-          case "b":
-          case "B":
-            exitLoop1 = true;
-            return ShipTypes.BATTLESHIP;
-            break;
-  
-          case "s":
-          case "S": 
-            exitLoop1 = true;
-            return ShipTypes.SUBMARINE;
-            break;
-  
-          case "c":
-          case "C":  
-            exitLoop1 = true;
-            return ShipTypes.CARRIER;
-            break;
-  
-          case "d":
-          case "D":
-            exitLoop1 = true;
-            return ShipTypes.DESTROYER;
-            break;
-  
-          default:
-            System.out.print("Try again, First char of Ship: ");
-            letterInput = userInput.nextLine();
-            break;
+        System.out.print("Input Ship type (First character of the ship please): ");
+        String letterInput = userInput.nextLine();
+
+        switch (letterInput) {
+            case "a":
+            case "A":
+                return ShipTypes.CARRIER;
+
+            case "b":
+            case "B":
+                return ShipTypes.BATTLESHIP;
+
+            case "s":
+            case "S":
+                return ShipTypes.SUBMARINE;
+
+            case "c":
+            case "C":
+                return ShipTypes.CRUISER;
+
+            case "d":
+            case "D":
+                return ShipTypes.DESTROYER;
         }
-      }
+        return null;
     }
 
-    public RotationDirection promptRotationDirection()
-    {
-      System.out.print("Rotate ship? (y/n): "); //WE DON'T HAVE CW ROTATION YET :(
-      letterInput = userInput.nextLine();
+    public static RotationDirection promptRotationDirection(Scanner userInput) {
+        System.out.print("Rotate ship? (y/n): "); //WE DON'T HAVE CW ROTATION YET :(
+        String letterInput = userInput.nextLine();
 
-      while(!exitLoop2)
-      {
-        switch(letterInput)
-        {
-          case "y":
-            exitLoop2 = true;
-            return RotationDirection.CCW;
-  
-          case "n":
-            exitLoop2 = true;
-            return RotationDirection.NO;
-  
-          default:
-            System.out.print("Try again, Rotate Ship: ");
-            letterInput = userInput.nextLine();
-            break;          
-        }  
-      }
+        switch (letterInput) {
+            case "y":
+                return RotationDirection.CCW;
+
+            case "n":
+                return RotationDirection.NO;
+        }
+        return null;
     }
 
-    public int promptCoordX()
-    {
-      while(!coordXValid)
-      {
+    public static int promptCoordX(Scanner userInput) {
         System.out.print("Input coordX of ship starting position: ");
-        numberInputs = userInput.nextLine();
-        try
-        {
-          Integer.valueOf(numberInputs);
-        }
-        catch(NumberFormatException e)
-        {
-           coordXValid = false;    
-        } 
-        coordXValid = true;
-        coordX = Integer.valueOf(numberInputs);
-      }
+        String numberInputs = userInput.nextLine();
+        return Integer.parseInt(numberInputs);
+
     }
 
-    public int promptCoordY()
-    {
-      while(!coordYValid)
-      {
+    public static int promptCoordY(Scanner userInput) {
         System.out.print("Input coordY of ship starting position: ");
-        numberInputs = userInput.nextLine();
-        try
-        {
-          Integer.valueOf(numberInputs);
-        }
-        catch(NumberFormatException e)
-        {
-           coordXValid = false;    
-        }
-        coordYValid = true;
-        return coordY = Integer.valueOf(numberInputs);
-      }
+        String numberInputs = userInput.nextLine();
+        return Integer.parseInt(numberInputs);
     }
-    
-    int i1 = 0;
-    while(i1 < 5)
-    {
-      type = this.promptShipTypes();
-      rotate = this.promptRotationDirection();
-      coordX = this.promptCoordX();
-      coordY = this.promptCoordY();  
-      
-      if(control.player1PutShip(type, coordX, coordY, rotate))
-      {
-        control.player1PutShip(type, coordX, coordY, rotate);
-        ++i1;
-      }
 
-      else
-      {
-        System.out.println("Something went wrong, please try again.");
-      }
-      break;
+    public static void main(String[] args)
+    {
+        Scanner userInput = new Scanner(System.in);
+
+        GameController control = GameController.init(10);
+
+        System.out.println("Player 1 put ships down!");
+        for(int i = 0; i < 5; i++)
+        {
+            ShipTypes shipType = promptShipTypes(userInput);
+            RotationDirection rotDir = promptRotationDirection(userInput);
+            int coordX = promptCoordX(userInput);
+            int coordY = promptCoordY(userInput);
+
+            control.player1PutShip(shipType, coordX, coordY, rotDir);
+        }
+        System.out.flush();
+
+        System.out.println("Player 2 put ships down!");
+
+        for(int i = 0; i < 5; i++) {
+            ShipTypes shipType = promptShipTypes(userInput);
+            RotationDirection rotDir = promptRotationDirection(userInput);
+            int coordX = promptCoordX(userInput);
+            int coordY = promptCoordY(userInput);
+
+            control.player2PutShip(shipType, coordX, coordY, rotDir);
+        }
+        System.out.flush();
+
+        while(true)
+        {
+            System.out.println("Player 1 Attack");
+            System.out.println(control.p1SeeRBoard());
+            System.out.println(control.p1SeeOBoard());
+            Point setPoint = new Point(promptCoordX(userInput), promptCoordY(userInput));
+            control.player1Attack(setPoint);
+            System.out.println(control.p1SeeRBoard());
+            int win = control.won(5);
+            if(win == 1)
+            {
+                System.out.println("Player 1 won!");
+                System.exit(0);
+            }
+
+            System.out.flush();
+
+            System.out.println("Player 2 Attack");
+            System.out.println(control.p2SeeRBoard());
+            System.out.println(control.p2SeeOBoard());
+            setPoint = new Point(promptCoordX(userInput), promptCoordY(userInput));
+            control.player2Attack(setPoint);
+            System.out.println(control.p1SeeRBoard());
+            System.out.flush();
+            if(win == -1)
+            {
+                System.out.println("Player 2 won!");
+                System.exit(0);
+            }
+
+
+
+        }
     }
-    
-  }
+
 }

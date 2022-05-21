@@ -180,5 +180,17 @@ public class GameController
     
     return p2.getOceanBoard().addObject(a);
   }
+
+  public int won(int shipsPerPlayer)
+  {
+    if(this.p1.getShipsSunk() >= shipsPerPlayer)
+    {
+      return 1;
+    }
+    else if(this.p2.getShipsSunk() >= shipsPerPlayer)
+    return -1;
+
+    return 0;
+  }
   
 }
